@@ -1,5 +1,7 @@
 const TplDrv = require('../TplDrv');
-
+/**
+ * @link https://twing.nightlycommit.com/usage.html
+ */
 class Twing extends TplDrv {
 
     /**

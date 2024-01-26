@@ -45,12 +45,13 @@ class KsTpl {
      * @description Encoded data from an algorithm
      * @param {TEnumDrv} [algorithm] 
      * @param {TList} [params] 
-     * @param {String} [action=build] 
+     * @param {String} [action=compile] 
      * @return {String} data
      */
-    run(algorithm, params, action = "build") {
+    run(algorithm, params, action = "compile") {
         try {
-            return this.get(algorithm)[action](...params);
+            const drv = this.get(algorithm);
+            return drv[action](...params);
         }
         catch (error) {
             this.log({
@@ -60,17 +61,6 @@ class KsTpl {
             });
             return null;
         }
-    }
-
-    /**
-     * @description Encoded data from an algorithm
-     * @param {String|Number|Object} data 
-     * @param {TEnumDrv} [algorithm=twing] 
-     * @param {Object} [options] Object config options based on selected algorithm.
-     * @return {String|Buffer} data
-     */
-    build(data, algorithm = 'twing', options = null) {
-        return this.run(algorithm, [data, options], "build");
     }
 
     /**
@@ -118,6 +108,38 @@ class KsTpl {
     log() {
         this.logger?.log && this.logger.log(...arguments);
         return this;
+    }
+
+    /**
+     * @description render 
+     * @param {String} file 
+     * @param {Object} [data] 
+     * @param {String} [data.flow] 
+     * @param {Object} [options] 
+     * @param {String} [options.path] 
+     * @param {String} [options.ext] 
+     * @param {String} [options.flow] 
+     * @param {String} [options.algorithm] 
+     * @returns {String}
+     */
+    render(file, data = {}, options = {}) {
+        return this.run(options?.algorithm || this.default, [file, data, options], "render");
+    }
+
+    /**
+     * @description compile all the options into data string
+     * @param {String} content 
+     * @param {Object} [data] 
+     * @param {String} [data.flow] 
+     * @param {Object} [options] 
+     * @param {String} [options.flow] 
+     * @param {String} [options.open] 
+     * @param {String} [options.close]
+     * @param {String} [options.algorithm] 
+     * @returns {String}
+     */
+    compile(content, data = {}, options = {}) {
+        return this.run(options?.algorithm || this.default, [content, data, options], "compile");
     }
 }
 

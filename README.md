@@ -1,2 +1,2 @@
-# kstpl
+# KsTpl
 Ksike Template Engine
