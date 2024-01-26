@@ -14,6 +14,6 @@ describe('Load KsTpl Lib', () => {
         expect(KsTpl.TplDrv).toBeInstanceOf(Function);
         expect(KsTpl.compile).toBeInstanceOf(Function);
         expect(KsTpl.render).toBeInstanceOf(Function);
-        // expect(KsTpl.get()).toBeInstanceOf(Object);
+        expect(KsTpl.get()).toBeInstanceOf(Object);
     });
 });

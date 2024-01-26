@@ -15,7 +15,7 @@ class KsTpl {
     /**
      * @type {Console|null}
      */
-    logger = null;
+    logger;
 
     constructor(opt) {
         this.drv = new KsDp.behavioral.Strategy({
@@ -24,7 +24,7 @@ class KsTpl {
         });
         this.cmd = new KsDp.behavioral.Command();
         this.default = "twing";
-        this.logger = console;
+        this.logger = null;
         this.configure(opt);
     }
 
@@ -37,7 +37,10 @@ class KsTpl {
      */
     configure(opt) {
         this.default = opt?.default ?? this.default;
+        this.path = opt?.path ?? this.path;
         this.logger = opt?.logger ?? opt?.log ?? this.logger;
+
+        this.run(opt?.algorithm || this.default, [opt], "configure");
         return this;
     }
 

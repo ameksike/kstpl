@@ -1,0 +1,14 @@
+
+{% for item in list %}
+
+    {% if item.twig %}
+
+        {% include 'simple.item.twig' with { 'item': item }  %}
+
+    {% else %}
+
+        {% include 'simple.html' with { 'name': item.name, 'age': item.age } %}
+
+    {% endif %}
+
+{% endfor %}

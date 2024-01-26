@@ -1,6 +1,7 @@
 const TplDrv = require('../TplDrv');
 /**
  * @link https://twing.nightlycommit.com/usage.html
+ * @link https://twing-api.nightlycommit.com/
  */
 class Twing extends TplDrv {
 
@@ -36,6 +37,8 @@ class Twing extends TplDrv {
      *	})()
      */
     async render(name, data = {}, options = {}) {
+        options.ext = options?.ext ?? this.ext;
+        options.path = options?.path ?? this.path;
         const { path, filename } = this.getPath(name, options);
         if (!path) return "";
         try {
@@ -54,7 +57,7 @@ class Twing extends TplDrv {
         catch (error) {
             this.logger?.error({
                 flow: data?.flow || options?.flow,
-                src: "util:TPLHandler:render",
+                src: "KsTpl:Twing:compile",
                 message: error?.message || error,
                 data: { name, path, local: __dirname }
             });
