@@ -36,7 +36,7 @@ class Twing extends TplDrv {
      *		});
      *	})()
      */
-    async render(name, data = {}, options = {}) {
+    async render2(name, data = {}, options = {}) {
         options.ext = options?.ext ?? this.ext;
         options.path = options?.path ?? this.path;
         const { path, filename } = this.getPath(name, options);
@@ -63,6 +63,24 @@ class Twing extends TplDrv {
             });
             return "";
         }
+    }
+
+    /**
+     * @description compile all the options into data string
+     * @param {String} content 
+     * @param {Object} [params] 
+     * @param {String} [params.flow] 
+     * @param {Object} [options] 
+     * @param {String} [options.flow] 
+     * @param {String} [options.open] 
+     * @param {String} [options.close] 
+     * @returns {String}
+     */
+    compile(content, params = {}, options = {}) {
+        const { createEnvironment, createArrayLoader } = require("twing");
+        const loader = createArrayLoader({ 'index.twig': content });
+        const environment = createEnvironment(loader);
+        return environment.render('index.twig', params);
     }
 }
 

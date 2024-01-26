@@ -1,10 +1,10 @@
 const KsTpl = require('../');
 describe('Driver Twing ', () => {
 
-    it("common use", () => {
+    it("common use", async () => {
         KsTpl.configure({ default: "twing" });
 
-        const str1 = KsTpl.compile("{{name}}:{{age}}", { name: "Mit", age: 15 });
+        const str1 = await KsTpl.compile("{{name}}:{{age}}", { name: "Mit", age: 15 });
         expect(str1).toBe("Mit:15");
     });
 

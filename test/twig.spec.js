@@ -9,7 +9,7 @@ describe('Driver Twig', () => {
     });
 
     it("file", async () => {
-        KsTpl.configure({ default: "twing", ext: "twig", path: __dirname + "/mock/" });
+        KsTpl.configure({ default: "twig", ext: "twig", path: __dirname + "/mock/" });
 
         const str1 = await KsTpl.render("simple", { list: [
             { name: "Mat", age: 3, twig: true },
