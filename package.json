@@ -1,0 +1,49 @@
+{
+  "name": "kstpl",
+  "version": "1.0.0",
+  "description": "Ksike Template Engine",
+  "main": "index.js",
+  "types": "types/index.d.ts",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "publish": "npm login && npm publish",
+    "type": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --checkJs --emitDeclarationOnly --outDir types"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ameksike/kstpl.git"
+  },
+  "keywords": [
+    "Engine",
+    "Template",
+    "HTML",
+    "Twig",
+    "Ejs",
+    "Markdown",
+    "Ksike"
+  ],
+  "author": {
+    "name": "Antonio Membrides Espinosa",
+    "email": "tonykssa@gmail.com",
+    "url": "https://github.com/ameksike"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ameksike/kstpl/issues"
+  },
+  "homepage": "https://github.com/ameksike/kstpl#readme",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "ksdp": "^1.2.16",
+    "twig": "^1.17.1",
+    "twing": "^6.0.2"
+  }
+}
