@@ -1,4 +1,4 @@
-const KsTpl = require('../types');
+const KsTpl = require('../');
 describe('Driver Twig', () => {
 
     it("common use", () => {

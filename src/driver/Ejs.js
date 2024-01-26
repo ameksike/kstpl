@@ -15,7 +15,10 @@ class Ejs extends TplDrv {
      * @returns {String}
      */
     compile(content, params = {}, options = {}) {
-        return ejs.compile(content, params);
+        this.delimiter && (ejs.delimiter = this.delimiter);
+        this.openDelimiter && (ejs.openDelimiter = this.openDelimiter);
+        this.closeDelimiter && (ejs.closeDelimiter = this.closeDelimiter);
+        return ejs.render(content, params, options);
     }
 
 }

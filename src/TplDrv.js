@@ -16,10 +16,29 @@ class TplDrv {
      */
     ext;
 
+    /**
+     * @type {String}
+     */
+    delimiter;
+
+    /**
+     * @type {String}
+     */
+    openDelimiter;
+
+    /**
+     * @type {String}
+     */
+    closeDelimiter;
+
     constructor(cfg = {}) {
         this.logger = cfg?.logger || null;
         this.path = _path.join(__dirname, '../../../');
         this.ext = 'html';
+
+        this.delimiter = null;
+        this.openDelimiter = null;
+        this.closeDelimiter = null;
     }
 
     /**
@@ -78,8 +97,19 @@ class TplDrv {
      * @returns {Promise<String>}
      */
     async render(name, data = {}, options = {}) {
-        const content = await this.getContent(name, options);
-        return this.compile(content, data, options);
+        try {
+            const content = await this.getContent(name, options);
+            return this.compile(content, data, options);
+        }
+        catch (error) {
+            this.logger.error({
+                flow: params?.flow || options?.flow,
+                src: "KsTpl:Str:compile",
+                error: { message: error?.message || error, stack: error?.stack },
+                data: { content, params, options }
+            });
+            return "";
+        }
     }
 
     /**
