@@ -1,9 +1,9 @@
-const TplDrv = require('../TplDrv');
+const Driver = require('../Driver');
 const hljs = require('highlight.js');
 const _path = require('path');
 const _fs = require('fs');
 
-class Highlight extends TplDrv {
+class Highlight extends Driver {
 
     /**
      * @description Interpolate all the options into data string
@@ -53,7 +53,7 @@ class Highlight extends TplDrv {
             `;
             return html;
         } catch (error) {
-            this.logger.error({
+            this.logger?.error({
                 flow: params?.flow || options?.flow,
                 src: "KsTpl:Markdown:compile",
                 error: { message: error?.message || error, stack: error?.stack },

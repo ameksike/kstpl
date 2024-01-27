@@ -1,0 +1,108 @@
+const _path = require('path');
+const KsDp = require('ksdp');
+
+class Cache extends KsDp.integration.Dip {
+
+    /**
+    * @type {Console}
+    */
+    logger;
+
+    /**
+     * @type {String}
+     */
+    path;
+
+    /**
+     * @type {String}
+     */
+    ext;
+
+    /**
+     * @type {String}
+     */
+    name;
+
+    /**
+     * @type {String}
+     */
+    encoding;
+
+    constructor(lib = null) {
+        super();
+        this.logger = lib?.logger || null;
+        this.path = _path.join(__dirname, '../../../');
+        this.ext = 'cache';
+        this.name = 'store';
+        this.encoding = 'utf8';
+        this.kstpl = lib;
+    }
+
+    /**
+     * @description configure library
+     * @param {Object} [opt] 
+     * @param {String} [opt.path]
+     * @param {String} [opt.ext] 
+     * @param {Console} [opt.logger] 
+     * @param {String} [opt.encoding] 
+     * @returns {Driver} self
+     */
+    configure(opt) {
+        this.ext = opt?.ext ?? this.ext;
+        this.path = opt?.path ?? this.path;
+        this.logger = opt?.logger ?? opt?.log ?? this.logger;
+        return this;
+    }
+
+    /**
+     * @description get file info 
+     * @param {Object} [options]
+     * @param {String} [options.name]
+     * @param {String} [options.path]
+     * @param {String} [options.ext] 
+     * @returns {{ file: String, ext: String, path:String, filename: String }} 
+     */
+    getPath(options = {}) {
+        options.ext = options?.ext || this.ext;
+        options.path = options?.path || this.path;
+        options.name = options?.name || this.name;
+        const ext = options?.ext ? "." + options.ext : "";
+        const file = _path.join(options?.path || "", options?.name + ext);
+        const path = _path.dirname(file);
+        const filename = _path.basename(file);
+        return { path, file, filename, ext };
+    }
+
+    /**
+     * @description get file info 
+     * @param {Object} [options]
+     * @param {String} [options.name]
+     * @param {String} [options.path]
+     * @param {String} [options.ext] 
+     * @param {String} [payload.encoding] 
+     * @param {String} [payload.flow] 
+     * @returns {{ file: String, ext: String, path:String, filename: String }} 
+     */
+    load(payload) {
+        const _path = require("path");
+        const ext = options?.ext ? "." + options.ext : "";
+        const file = _path.join(options?.path || "", name + ext);
+        const path = _path.dirname(file);
+        const filename = _path.basename(file);
+        return { path, file, filename, ext };
+    }
+
+    /**
+     * @description save content into a file
+     * @param {String} [content] 
+     * @param {String} [file] 
+     * @param {Object} [option] 
+     */
+    save(payload) {
+        file = _path.join(option?.path || "", file || "demo.cache");
+        const fs = require('fs').promises;
+        return fs.writeFile(file, content);
+    }
+}
+
+module.exports = Cache;

@@ -1,6 +1,6 @@
-const TplDrv = require('../TplDrv');
+const Driver = require('../Driver');
 
-class Mark extends TplDrv {
+class Mark extends Driver {
 
     /**
      * @description Interpolate all the options into data string
@@ -18,7 +18,7 @@ class Mark extends TplDrv {
             const { marked } = require('marked');
             return marked(content, options);
         } catch (error) {
-            this.logger.error({
+            this.logger?.error({
                 flow: params?.flow || options?.flow,
                 src: "KsTpl:Markdown:compile",
                 error: { message: error?.message || error, stack: error?.stack },

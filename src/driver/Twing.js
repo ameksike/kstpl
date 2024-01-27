@@ -1,9 +1,9 @@
-const TplDrv = require('../TplDrv');
+const Driver = require('../Driver');
 /**
  * @link https://twing.nightlycommit.com/usage.html
  * @link https://twing-api.nightlycommit.com/
  */
-class Twing extends TplDrv {
+class Twing extends Driver {
 
     /**
      * @description Render templates based on twing lib

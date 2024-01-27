@@ -1,7 +1,7 @@
-const TplDrv = require('../TplDrv');
+const Driver = require('../Driver');
 const ejs = require('ejs');
 
-class Ejs extends TplDrv {
+class Ejs extends Driver {
 
     /**
      * @description compile all the options into data string

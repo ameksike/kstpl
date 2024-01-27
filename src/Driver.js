@@ -1,7 +1,7 @@
 const _path = require('path');
 const KsDp = require('ksdp');
 
-class TplDrv extends KsDp.integration.Dip {
+class Driver extends KsDp.integration.Dip {
 
     /**
     * @type {include('./KsTpl')}
@@ -59,7 +59,7 @@ class TplDrv extends KsDp.integration.Dip {
      * @param {String} [opt.openDelimiter] 
      * @param {String} [opt.closeDelimiter] 
      * @param {Console} [opt.logger] 
-     * @returns {TplDrv} self
+     * @returns {Driver} self
      */
     configure(opt) {
         this.path = opt?.path ?? this.path;
@@ -115,7 +115,7 @@ class TplDrv extends KsDp.integration.Dip {
             return this.compile(content, data, options);
         }
         catch (error) {
-            this.logger.error({
+            this.logger?.error({
                 flow: params?.flow || options?.flow,
                 src: "KsTpl:Str:compile",
                 error: { message: error?.message || error, stack: error?.stack },
@@ -163,4 +163,4 @@ class TplDrv extends KsDp.integration.Dip {
     }
 }
 
-module.exports = TplDrv;
+module.exports = Driver;

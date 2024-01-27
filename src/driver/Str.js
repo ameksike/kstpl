@@ -1,6 +1,6 @@
-const TplDrv = require('../TplDrv');
+const Driver = require('../Driver');
 
-class Str extends TplDrv {
+class Str extends Driver {
 
     /**
      * @description Interpolate all the options into data string
@@ -30,7 +30,7 @@ class Str extends TplDrv {
             }
             return content.replace(/\\r|\r|\n|\\n/g, "");
         } catch (error) {
-            this.logger.error({
+            this.logger?.error({
                 flow: params?.flow || options?.flow,
                 src: "KsTpl:Str:compile",
                 error: { message: error?.message || error, stack: error?.stack },

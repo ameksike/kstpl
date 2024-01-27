@@ -1,7 +1,7 @@
-const TplDrv = require('../TplDrv');
+const Driver = require('../Driver');
 const _twig = require('twig');
 
-class Twig extends TplDrv {
+class Twig extends Driver {
 
     /**
      * @description compile all the options into data string

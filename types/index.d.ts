@@ -1,5 +1,5 @@
 declare const _exports: {
-    TplDrv: typeof TplDrv;
+    Driver: typeof Driver;
     KsTpl: typeof KsTpl;
     logger: Console;
     drv: import("ksdp/types/src/behavioral/Strategy");
@@ -17,5 +17,5 @@ declare const _exports: {
     log(...args: any[]): this;
 };
 export = _exports;
-import TplDrv = require("./src/TplDrv");
+import Driver = require("./src/Driver");
 import KsTpl = require("./src/KsTpl");

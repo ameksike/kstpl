@@ -1,5 +1,5 @@
-export = TplDrv;
-declare class TplDrv {
+export = Driver;
+declare class Driver {
     constructor(cfg?: {});
     /**
     * @type {Console}

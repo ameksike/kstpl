@@ -1,6 +1,6 @@
-const TplDrv = require('../TplDrv');
-
-class Markdown extends TplDrv {
+const Driver = require('../Driver');
+const markdownit = require('markdown-it');
+class Markdown extends Driver {
 
     /**
      * @description Interpolate all the options into data string
@@ -16,7 +16,6 @@ class Markdown extends TplDrv {
      */
     compile(content, params = {}, options = {}) {
         try {
-            const markdownit = require('markdown-it');
             const nextDrv = options?.next && this.kstpl?.get(options?.next);
             // Actual default values
             const md = markdownit({
@@ -39,7 +38,7 @@ class Markdown extends TplDrv {
                 // or '' if the source string is not changed and should be escaped externally.
                 // If result starts with <pre... internal wrapper is skipped.
                 highlight: options?.highlight instanceof Function ? options?.highlight : (str, lang) => {
-                    if (nextDrv) {
+                    if (nextDrv?.format instanceof Function) {
                         return nextDrv.format(str, { lang, escapeHtml: (str) => md.utils.escapeHtml(str) });
                     }
                     return str;
@@ -48,7 +47,7 @@ class Markdown extends TplDrv {
             options && delete options["next"];
             return nextDrv ? nextDrv.compile(md.render(content), params, options) : md.render(content);
         } catch (error) {
-            this.logger.error({
+            this.logger?.error({
                 flow: params?.flow || options?.flow,
                 src: "KsTpl:Markdown:compile",
                 error: { message: error?.message || error, stack: error?.stack },

@@ -17,14 +17,36 @@ class KsTpl {
      */
     logger;
 
+    /**
+     * @type {KsDp.behavioral.Command}
+     */
+    cmd;
+
+    /**
+     * @type {KsDp.behavioral.Strategy}
+     */
+    drv;
+
+    /**
+     * @type {KsDp.behavioral.Strategy}
+     */
+    che;
+
     constructor(opt) {
         this.drv = new KsDp.behavioral.Strategy({
             path: path.resolve(__dirname),
             default: 'driver'
         });
+        this.che = new KsDp.behavioral.Strategy({
+            path: path.resolve(__dirname),
+            default: 'cache'
+        });
         this.cmd = new KsDp.behavioral.Command();
         this.default = "twing";
         this.logger = null;
+        this.cacheType = "";
+        this.cachePath = "";
+        this.cacheExt = "";
         this.configure(opt);
     }
 
@@ -32,15 +54,19 @@ class KsTpl {
      * @description configure library
      * @param {Object} [opt] 
      * @param {TEnumDrv} [opt.default=twing] 
-     * @param {Console} [opt.log] 
+     * @param {Console} [opt.logger] 
      * @param {String} [opt.path] 
+     * @param {String} [opt.cachePath] 
+     * @param {String} [opt.cacheType] 
      * @returns {Object} KsTpl
      */
     configure(opt) {
         this.default = opt?.default ?? this.default;
-        this.logger = opt?.logger ?? opt?.log ?? this.logger;
+        this.logger = opt?.logger ?? this.logger;
         this.path = opt?.path ?? this.path;
-
+        this.cacheType = opt?.cacheType ?? this.cacheType;
+        this.cachePath = opt?.cachePath ?? this.cachePath;
+        this.cacheExt = opt?.cacheExt ?? this.cacheExt;
         this.run(opt?.algorithm || this.default, [opt], "configure");
         return this;
     }
@@ -136,11 +162,32 @@ class KsTpl {
      * @param {String} [options.path] 
      * @param {String} [options.ext] 
      * @param {String} [options.flow] 
+     * @param {String} [options.cachePath] 
+     * @param {String} [options.cacheType] 
+     * @param {String} [options.cacheExt] 
      * @param {String} [options.algorithm] 
-     * @returns {String}
+     * @returns {Promise<String>}
      */
-    render(file, data = {}, options = {}) {
-        return this.run(this.getDrvName(file, options), [file, data, options], "render");
+    async render(file, data = {}, options = {}) {
+        let cacheType = options?.cacheType ?? this.cacheType;
+        let cache = cacheType ? this.che.get({ name: cacheType, params: [this] }) : null;
+        let content = cache ? await cache?.load({
+            name: file,
+            path: options?.cachePath || this.cachePath,
+            ext: options?.cacheExt || this.cacheExt
+        }) : null;
+        if (content) {
+            return content;
+        }
+        content = await this.run(this.getDrvName(file, options), [file, data, options], "render");
+        if (cache) {
+            cache?.save({
+                content,
+                path: options?.cachePath || this.cachePath,
+                ext: options?.cacheExt || this.cacheExt
+            });
+        }
+        return content;
     }
 
     /**

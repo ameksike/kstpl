@@ -1,7 +1,9 @@
 const KsTpl = require('./src/KsTpl');
-const TplDrv = require('./src/TplDrv');
+const Driver = require('./src/Driver');
+const Cache = require('./src/Cache');
 
 module.exports = new (class extends KsTpl {
-    TplDrv = TplDrv;
+    Driver = Driver;
     KsTpl = KsTpl;
+    Cache = Cache;
 });
