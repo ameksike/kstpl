@@ -15,8 +15,19 @@ class Twig extends Driver {
      * @returns {String}
      */
     compile(content, params = {}, options = {}) {
-        let template = _twig.twig({ data: content });
-        return template.render(params);
+        try {
+            let template = _twig.twig({ data: content });
+            return template.render(params);
+        }
+        catch (error) {
+            this.logger?.error({
+                flow: data?.flow || options?.flow,
+                src: "KsTpl:Twig:compile",
+                message: error?.message || error,
+                data: { name, path, local: __dirname }
+            });
+            return "";
+        }
     }
 
 }

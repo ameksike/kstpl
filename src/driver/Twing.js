@@ -1,5 +1,5 @@
 const Driver = require('../Driver');
-const libTwing = require("twing");
+const _twing = require("twing");
 /**
  * @link https://twing.nightlycommit.com/usage.html
  * @link https://twing-api.nightlycommit.com/
@@ -66,13 +66,13 @@ class Twing extends Driver {
             options = options || {};
             let loader = null;
             if (options?.fs && options?.path) {
-                loader = libTwing.createFilesystemLoader(require("fs"));
+                loader = _twing.createFilesystemLoader(require("fs"));
                 loader.addPath(options.path);
             } else {
-                loader = libTwing.createArrayLoader({ 'default': content });
+                loader = _twing.createArrayLoader({ 'default': content });
                 options.filename = 'default';
             }
-            let environment = this.decorate(libTwing.createEnvironment(loader), options);
+            let environment = this.decorate(_twing.createEnvironment(loader), options);
             return environment.render(options.filename, params);
         }
         catch (error) {
@@ -97,7 +97,7 @@ class Twing extends Driver {
             for (let i in options.functions) {
                 const item = options.functions[i];
                 if (item.handler instanceof Function) {
-                    environment.addFunction(libTwing.createFunction(item?.name || i, item.handler, item.params || []));
+                    environment.addFunction(_twing.createFunction(item?.name || i, item.handler, item.params || []));
                 }
             }
         }
@@ -105,7 +105,7 @@ class Twing extends Driver {
             for (let i in options.filters) {
                 const item = options.filters[i];
                 if (item.handler instanceof Function) {
-                    environment.addFilter(libTwing.createFilter(item?.name || i, item.handler, item.params || []));
+                    environment.addFilter(_twing.createFilter(item?.name || i, item.handler, item.params || []));
                 }
             }
         }
