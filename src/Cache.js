@@ -74,34 +74,29 @@ class Cache extends KsDp.integration.Dip {
     }
 
     /**
-     * @description get file info 
-     * @param {Object} [options]
-     * @param {String} [options.name]
-     * @param {String} [options.path]
-     * @param {String} [options.ext] 
+     * @description get file content 
+     * @param {Object} [payload]
+     * @param {String} [payload.ext] 
+     * @param {String} [payload.path] 
      * @param {String} [payload.encoding] 
      * @param {String} [payload.flow] 
-     * @returns {{ file: String, ext: String, path:String, filename: String }} 
+     * @returns {Promise<String>} 
      */
-    load(payload) {
-        const _path = require("path");
-        const ext = options?.ext ? "." + options.ext : "";
-        const file = _path.join(options?.path || "", name + ext);
-        const path = _path.dirname(file);
-        const filename = _path.basename(file);
-        return { path, file, filename, ext };
+    async load(payload) {
+        return null;
     }
 
     /**
      * @description save content into a file
-     * @param {String} [content] 
-     * @param {String} [file] 
-     * @param {Object} [option] 
+     * @param {Object} [payload]
+     * @param {String} [payload.ext] 
+     * @param {String} [payload.path] 
+     * @param {String} [payload.encoding] 
+     * @param {String} [payload.flow] 
+     * @returns {Promise<String>}
      */
-    save(payload) {
-        file = _path.join(option?.path || "", file || "demo.cache");
-        const fs = require('fs').promises;
-        return fs.writeFile(file, content);
+    async save(payload = {}) {
+        return null;
     }
 }
 

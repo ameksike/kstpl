@@ -45,7 +45,10 @@ class Driver extends Cache {
         }
         try {
             let { file } = this.getPath(payload);
-            await _fs.promises.mkdir(_path.dirname(file));
+            try {
+                await _fs.promises.mkdir(_path.dirname(file));
+            }
+            catch (_) { }
             await _fs.promises.writeFile(file, payload.content);
             return file;
         }

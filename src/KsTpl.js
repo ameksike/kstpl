@@ -180,13 +180,12 @@ class KsTpl {
             return content;
         }
         content = await this.run(this.getDrvName(file, options), [file, data, options], "render");
-        if (cache) {
-            cache?.save({
-                content,
-                path: options?.cachePath || this.cachePath,
-                ext: options?.cacheExt || this.cacheExt
-            });
-        }
+        cache?.save({
+            content,
+            name: file,
+            path: options?.cachePath || this.cachePath,
+            ext: options?.cacheExt || this.cacheExt
+        });
         return content;
     }
 

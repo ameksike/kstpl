@@ -45,7 +45,7 @@ class Markdown extends Driver {
                 }
             });
             options && delete options["next"];
-            return nextDrv ? nextDrv.compile(md.render(content), params, options) : md.render(content);
+            return nextDrv?.compile instanceof Function ? nextDrv.compile(md.render(content), params, options) : md.render(content);
         } catch (error) {
             this.logger?.error({
                 flow: params?.flow || options?.flow,
