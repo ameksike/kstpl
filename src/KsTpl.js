@@ -33,12 +33,13 @@ class KsTpl {
      * @param {Object} [opt] 
      * @param {TEnumDrv} [opt.default=twing] 
      * @param {Console} [opt.log] 
+     * @param {String} [opt.path] 
      * @returns {Object} KsTpl
      */
     configure(opt) {
         this.default = opt?.default ?? this.default;
-        this.path = opt?.path ?? this.path;
         this.logger = opt?.logger ?? opt?.log ?? this.logger;
+        this.path = opt?.path ?? this.path;
 
         this.run(opt?.algorithm || this.default, [opt], "configure");
         return this;
@@ -156,6 +157,16 @@ class KsTpl {
      */
     compile(content, data = {}, options = {}) {
         return this.run(options?.algorithm || this.default, [content, data, options], "compile");
+    }
+
+    /**
+     * @description save content into a file
+     * @param {String} [content] 
+     * @param {String} [file] 
+     * @param {Object} [option] 
+     */
+    save(content, file = "demo.cache", option = {}) {
+        return this.run(option?.algorithm || this.default, [content, file, option], "save");
     }
 }
 

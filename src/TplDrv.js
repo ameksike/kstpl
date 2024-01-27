@@ -1,5 +1,12 @@
 const _path = require('path');
-class TplDrv {
+const KsDp = require('ksdp');
+
+class TplDrv extends KsDp.integration.Dip {
+
+    /**
+    * @type {include('./KsTpl')}
+    */
+    kstpl;
 
     /**
     * @type {Console}
@@ -31,10 +38,12 @@ class TplDrv {
      */
     closeDelimiter;
 
-    constructor(cfg = {}) {
-        this.logger = cfg?.logger || null;
+    constructor(lib = null) {
+        super();
+        this.logger = lib?.logger || null;
         this.path = _path.join(__dirname, '../../../');
         this.ext = 'html';
+        this.kstpl = lib;
 
         this.delimiter = null;
         this.openDelimiter = null;
@@ -44,7 +53,11 @@ class TplDrv {
     /**
      * @description configure library
      * @param {Object} [opt] 
-     * @param {String} [opt.path] 
+     * @param {String} [opt.path]
+     * @param {String} [opt.ext] 
+     * @param {String} [opt.delimiter] 
+     * @param {String} [opt.openDelimiter] 
+     * @param {String} [opt.closeDelimiter] 
      * @param {Console} [opt.logger] 
      * @returns {TplDrv} self
      */
@@ -124,6 +137,28 @@ class TplDrv {
      * @returns {String}
      */
     compile(content, params = {}, options = {}) {
+        return content;
+    }
+
+    /**
+     * @description save content into a file
+     * @param {String} [content] 
+     * @param {String} [file] 
+     * @param {Object} [option] 
+     */
+    save(content, file = "demo.cache", option = {}) {
+        file = _path.join(option?.path || "", file || "demo.cache");
+        const fs = require('fs').promises;
+        return fs.writeFile(file, content);
+    }
+
+    /**
+     * @description format the content 
+     * @param {String} content 
+     * @param {Object} [option] 
+     * @returns {String}
+     */
+    format(content, option = {}) {
         return content;
     }
 }
