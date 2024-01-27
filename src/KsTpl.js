@@ -115,6 +115,19 @@ class KsTpl {
 
     /**
      * @description render 
+     * @param {String} [file] 
+     * @param {Object} [options] 
+     * @param {String} [options.path] 
+     * @param {String} [options.ext] 
+     * @param {String} [options.algorithm] 
+     * @returns {String}
+     */
+    getDrvName(file = "", options = {}) {
+        return options?.algorithm || this.default;
+    }
+
+    /**
+     * @description render 
      * @param {String} file 
      * @param {Object} [data] 
      * @param {String} [data.flow] 
@@ -126,7 +139,7 @@ class KsTpl {
      * @returns {String}
      */
     render(file, data = {}, options = {}) {
-        return this.run(options?.algorithm || this.default, [file, data, options], "render");
+        return this.run(this.getDrvName(file, options), [file, data, options], "render");
     }
 
     /**

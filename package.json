@@ -11,7 +11,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "publish": "npm login && npm publish",
-    "type": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --checkJs --emitDeclarationOnly --outDir types"
+    "type": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --checkJs --emitDeclarationOnly --esModuleInterop --allowSyntheticDefaultImports --resolveJsonModule --outDir types"
   },
   "repository": {
     "type": "git",
