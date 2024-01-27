@@ -168,6 +168,16 @@ class KsTpl {
     save(content, file = "demo.cache", option = {}) {
         return this.run(option?.algorithm || this.default, [content, file, option], "save");
     }
+
+    /**
+     * @description format the content 
+     * @param {String} content 
+     * @param {Object} [option] 
+     * @returns {String}
+     */
+    format(content, option = {}) {
+        return this.run(option?.algorithm || this.default, [content, option], "save");
+    }
 }
 
 module.exports = KsTpl;

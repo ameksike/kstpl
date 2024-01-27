@@ -36,7 +36,7 @@ class Highlight extends TplDrv {
                 let hljsPathTmp = require.resolve('highlight.js');
                 let hljsPath = _path.dirname(hljsPathTmp);
                 let filePath = _path.join(hljsPath, '../', 'styles', stlName);
-                let fileContent = _fs.readFileSync(filePath, 'utf-8')
+                let fileContent = _fs.readFileSync(filePath, 'utf-8');
                 stlTag = `<style> ${fileContent} </style>`;
             }
             const html = `

@@ -46,7 +46,7 @@ class Markdown extends TplDrv {
                 }
             });
             options && delete options["next"];
-            return nextDrv ? nextDrv.compile(content, params, options) : md.render(content);
+            return nextDrv ? nextDrv.compile(md.render(content), params, options) : md.render(content);
         } catch (error) {
             this.logger.error({
                 flow: params?.flow || options?.flow,
