@@ -45,12 +45,12 @@ class Cache extends KsDp.integration.Dip {
      * @param {String} [opt.ext] 
      * @param {Console} [opt.logger] 
      * @param {String} [opt.encoding] 
-     * @returns {Driver} self
+     * @returns {Cache} self
      */
     configure(opt) {
         this.ext = opt?.ext ?? this.ext;
         this.path = opt?.path ?? this.path;
-        this.logger = opt?.logger ?? opt?.log ?? this.logger;
+        this.logger = opt?.logger ?? this.logger;
         return this;
     }
 

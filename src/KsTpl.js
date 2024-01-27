@@ -4,8 +4,8 @@
  */
 
 /**
- * @typedef {import('../types').TList} TList 
- * @typedef {import('../types').TEnumDrv} TEnumDrv 
+ * @typedef {import('./types').TList} TList 
+ * @typedef {import('./types').TEnumDrv} TEnumDrv 
  */
 const KsDp = require('ksdp');
 const path = require('path');
@@ -18,17 +18,17 @@ class KsTpl {
     logger;
 
     /**
-     * @type {KsDp.behavioral.Command}
+     * @type {Object|null}
      */
     cmd;
 
     /**
-     * @type {KsDp.behavioral.Strategy}
+     * @type {Object|null}
      */
     drv;
 
     /**
-     * @type {KsDp.behavioral.Strategy}
+     * @type {Object|null}
      */
     che;
 
@@ -56,8 +56,10 @@ class KsTpl {
      * @param {TEnumDrv} [opt.default=twing] 
      * @param {Console} [opt.logger] 
      * @param {String} [opt.path] 
+     * @param {String} [opt.algorithm] 
      * @param {String} [opt.cachePath] 
      * @param {String} [opt.cacheType] 
+     * @param {String} [opt.cacheExt] 
      * @returns {Object} KsTpl
      */
     configure(opt) {
@@ -73,8 +75,8 @@ class KsTpl {
 
     /**
      * @description Encoded data from an algorithm
-     * @param {TEnumDrv} [algorithm] 
-     * @param {TList} [params] 
+     * @param {String} [algorithm] 
+     * @param {Object} [params] 
      * @param {String} [action=compile] 
      * @return {String} data
      */
@@ -95,8 +97,6 @@ class KsTpl {
 
     /**
      * @description set an external driver format
-     * @param {Object} payload 
-     * @param {String} [alias]
      * @returns {Object}
      */
     use() {
@@ -112,8 +112,6 @@ class KsTpl {
 
     /**
      * @description set an external driver format
-     * @param {Object} payload 
-     * @param {String} [alias]
      * @returns {Object}
      */
     set() {

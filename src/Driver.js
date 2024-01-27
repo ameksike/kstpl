@@ -4,7 +4,7 @@ const KsDp = require('ksdp');
 class Driver extends KsDp.integration.Dip {
 
     /**
-    * @type {include('./KsTpl')}
+    * @type {import('./KsTpl')}
     */
     kstpl;
 
@@ -64,7 +64,7 @@ class Driver extends KsDp.integration.Dip {
     configure(opt) {
         this.path = opt?.path ?? this.path;
         this.ext = opt?.ext ?? this.ext;
-        this.logger = opt?.logger ?? opt?.log ?? this.logger;
+        this.logger = opt?.logger ?? this.logger;
         return this;
     }
 
@@ -73,6 +73,7 @@ class Driver extends KsDp.integration.Dip {
      * @param {String} name 
      * @param {Object} [options]
      * @param {String} [options.ext] 
+     * @param {String} [options.path] 
      * @returns {{ file: String, ext: String, path:String, filename: String }} 
      */
     getPath(name, options) {
@@ -88,13 +89,13 @@ class Driver extends KsDp.integration.Dip {
      * @description get file content
      * @param {String} name 
      * @param {Object} options 
-     * @returns {Promise<String>} content
+     * @returns {Promise<*>} content
      */
     getContent(name, options) {
         options.ext = options?.ext ?? this.ext;
         options.path = options?.path ?? this.path;
         const { path, file } = this.getPath(name, options);
-        if (!path) return "";
+        if (!path) return Promise.resolve("");
         const fs = require('fs').promises;
         return fs.readFile(file, options.encoding || "utf8");
     }
@@ -103,6 +104,7 @@ class Driver extends KsDp.integration.Dip {
      * @description render 
      * @param {String} name 
      * @param {Object} [data] 
+     * @param {String} [data.flow] 
      * @param {Object} [options] 
      * @param {String} [options.path] 
      * @param {String} [options.ext] 
@@ -116,10 +118,10 @@ class Driver extends KsDp.integration.Dip {
         }
         catch (error) {
             this.logger?.error({
-                flow: params?.flow || options?.flow,
+                flow: data?.flow || options?.flow,
                 src: "KsTpl:Str:compile",
                 error: { message: error?.message || error, stack: error?.stack },
-                data: { content, params, options }
+                data: { name, data, options }
             });
             return "";
         }
