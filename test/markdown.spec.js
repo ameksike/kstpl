@@ -7,7 +7,17 @@ describe('Driver Markdown', () => {
         expect(str1).toBe("<h1>Hello, Markdown!</h1>\n");
     });
 
-    it("file", async () => {
+    it("file without cache", async () => {
+        KsTpl.configure({
+            ext: "md",
+            default: "markdown",
+            path: __dirname + "/mock/"
+        });
+        const str1 = await KsTpl.render("simple", { name: "Mit", age: 15 }, { page: {}, next: "Highlight" });
+        expect(str1.length).toBe(2185);
+    });
+
+    it("file with cache", async () => {
         KsTpl.configure({
             ext: "md",
             default: "markdown",
