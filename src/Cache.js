@@ -32,7 +32,7 @@ class Cache extends KsDp.integration.Dip {
         super();
         this.logger = lib?.logger || null;
         this.path = _path.join(__dirname, '../../../');
-        this.ext = 'cache';
+        this.ext = 'cache.html';
         this.name = 'store';
         this.encoding = 'utf8';
         this.kstpl = lib;
