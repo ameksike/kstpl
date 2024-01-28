@@ -56,7 +56,7 @@ class KsTpl {
      * @param {TEnumDrv} [opt.default=twing] 
      * @param {Console} [opt.logger] 
      * @param {String} [opt.path] 
-     * @param {String} [opt.algorithm] 
+     * @param {String} [opt.driver] 
      * @param {String} [opt.cachePath] 
      * @param {String} [opt.cacheType] 
      * @param {String} [opt.cacheExt] 
@@ -69,25 +69,25 @@ class KsTpl {
         this.cacheType = opt?.cacheType ?? this.cacheType;
         this.cachePath = opt?.cachePath ?? this.cachePath;
         this.cacheExt = opt?.cacheExt ?? this.cacheExt;
-        this.run(opt?.algorithm || this.default, [opt], "configure");
+        this.run(opt?.driver || this.default, [opt], "configure");
         return this;
     }
 
     /**
-     * @description Encoded data from an algorithm
-     * @param {String} [algorithm] 
+     * @description Encoded data from an driver
+     * @param {String} [driver] 
      * @param {Object} [params] 
      * @param {String} [action=compile] 
      * @return {String} data
      */
-    run(algorithm, params, action = "compile") {
+    run(driver, params, action = "compile") {
         try {
-            const drv = this.get(algorithm);
+            const drv = this.get(driver);
             return drv[action](...params);
         }
         catch (error) {
             this.log({
-                src: "KsTpl:" + algorithm + ":" + action,
+                src: "KsTpl:" + driver + ":" + action,
                 error: { message: error?.message || error, stack: error?.stack },
                 data: params
             });
@@ -119,13 +119,13 @@ class KsTpl {
     }
 
     /**
-     * @description get a certain algorithm implementation 
-     * @param {String} [algorithm=twing] 
+     * @description get a certain driver implementation 
+     * @param {String} [driver=twing] 
      * @returns {Object}
      */
-    get(algorithm = 'twing') {
-        return algorithm && this.drv.get({
-            name: algorithm || this.default,
+    get(driver = 'twing') {
+        return driver && this.drv.get({
+            name: driver || this.default,
             params: [this]
         });
     }
@@ -144,11 +144,11 @@ class KsTpl {
      * @param {Object} [options] 
      * @param {String} [options.path] 
      * @param {String} [options.ext] 
-     * @param {String} [options.algorithm] 
+     * @param {String} [options.driver] 
      * @returns {String}
      */
     getDrvName(file = "", options = {}) {
-        return options?.algorithm || this.default;
+        return options?.driver || this.default;
     }
 
     /**
@@ -163,7 +163,7 @@ class KsTpl {
      * @param {String} [options.cachePath] 
      * @param {String} [options.cacheType] 
      * @param {String} [options.cacheExt] 
-     * @param {String} [options.algorithm] 
+     * @param {String} [options.driver] 
      * @returns {Promise<String>}
      */
     async render(file, data = {}, options = {}) {
@@ -196,11 +196,11 @@ class KsTpl {
      * @param {String} [options.flow] 
      * @param {String} [options.open] 
      * @param {String} [options.close]
-     * @param {String} [options.algorithm] 
+     * @param {String} [options.driver] 
      * @returns {String}
      */
     compile(content, data = {}, options = {}) {
-        return this.run(options?.algorithm || this.default, [content, data, options], "compile");
+        return this.run(options?.driver || this.default, [content, data, options], "compile");
     }
 
     /**
@@ -210,7 +210,7 @@ class KsTpl {
      * @param {Object} [option] 
      */
     save(content, file = "demo.cache", option = {}) {
-        return this.run(option?.algorithm || this.default, [content, file, option], "save");
+        return this.run(option?.driver || this.default, [content, file, option], "save");
     }
 
     /**
@@ -220,7 +220,7 @@ class KsTpl {
      * @returns {String}
      */
     format(content, option = {}) {
-        return this.run(option?.algorithm || this.default, [content, option], "save");
+        return this.run(option?.driver || this.default, [content, option], "save");
     }
 }
 

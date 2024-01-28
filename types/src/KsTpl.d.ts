@@ -27,7 +27,7 @@ declare class KsTpl {
      * @param {TEnumDrv} [opt.default=twing]
      * @param {Console} [opt.logger]
      * @param {String} [opt.path]
-     * @param {String} [opt.algorithm]
+     * @param {String} [opt.driver]
      * @param {String} [opt.cachePath]
      * @param {String} [opt.cacheType]
      * @param {String} [opt.cacheExt]
@@ -37,20 +37,20 @@ declare class KsTpl {
         default?: TEnumDrv;
         logger?: Console;
         path?: string;
-        algorithm?: string;
+        driver?: string;
         cachePath?: string;
         cacheType?: string;
         cacheExt?: string;
     }): any;
     path: any;
     /**
-     * @description Encoded data from an algorithm
-     * @param {String} [algorithm]
+     * @description Encoded data from an driver
+     * @param {String} [driver]
      * @param {Object} [params]
      * @param {String} [action=compile]
      * @return {String} data
      */
-    run(algorithm?: string, params?: any, action?: string): string;
+    run(driver?: string, params?: any, action?: string): string;
     /**
      * @description set an external driver format
      * @returns {Object}
@@ -62,11 +62,11 @@ declare class KsTpl {
      */
     set(...args: any[]): any;
     /**
-     * @description get a certain algorithm implementation
-     * @param {String} [algorithm=twing]
+     * @description get a certain driver implementation
+     * @param {String} [driver=twing]
      * @returns {Object}
      */
-    get(algorithm?: string): any;
+    get(driver?: string): any;
     /**
      * @description internal log handler
      */
@@ -77,13 +77,13 @@ declare class KsTpl {
      * @param {Object} [options]
      * @param {String} [options.path]
      * @param {String} [options.ext]
-     * @param {String} [options.algorithm]
+     * @param {String} [options.driver]
      * @returns {String}
      */
     getDrvName(file?: string, options?: {
         path?: string;
         ext?: string;
-        algorithm?: string;
+        driver?: string;
     }): string;
     /**
      * @description render
@@ -97,7 +97,7 @@ declare class KsTpl {
      * @param {String} [options.cachePath]
      * @param {String} [options.cacheType]
      * @param {String} [options.cacheExt]
-     * @param {String} [options.algorithm]
+     * @param {String} [options.driver]
      * @returns {Promise<String>}
      */
     render(file: string, data?: {
@@ -109,7 +109,7 @@ declare class KsTpl {
         cachePath?: string;
         cacheType?: string;
         cacheExt?: string;
-        algorithm?: string;
+        driver?: string;
     }): Promise<string>;
     /**
      * @description compile all the options into data string
@@ -120,7 +120,7 @@ declare class KsTpl {
      * @param {String} [options.flow]
      * @param {String} [options.open]
      * @param {String} [options.close]
-     * @param {String} [options.algorithm]
+     * @param {String} [options.driver]
      * @returns {String}
      */
     compile(content: string, data?: {
@@ -129,7 +129,7 @@ declare class KsTpl {
         flow?: string;
         open?: string;
         close?: string;
-        algorithm?: string;
+        driver?: string;
     }): string;
     /**
      * @description save content into a file
