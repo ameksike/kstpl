@@ -15,10 +15,21 @@ class Ejs extends Driver {
      * @returns {String}
      */
     compile(content, params = {}, options = {}) {
-        this.delimiter && (ejs.delimiter = this.delimiter);
-        this.openDelimiter && (ejs.openDelimiter = this.openDelimiter);
-        this.closeDelimiter && (ejs.closeDelimiter = this.closeDelimiter);
-        return ejs.render(content, params, options);
+        try {
+            this.delimiter && (ejs.delimiter = this.delimiter);
+            this.openDelimiter && (ejs.openDelimiter = this.openDelimiter);
+            this.closeDelimiter && (ejs.closeDelimiter = this.closeDelimiter);
+            return ejs.render(content, params, options);
+        }
+        catch (error) {
+            this.logger?.error({
+                flow: data?.flow || options?.flow,
+                src: "KsTpl:Ejs:compile",
+                message: error?.message || error,
+                data: { content, params, options }
+            });
+            return "";
+        }
     }
 
 }
