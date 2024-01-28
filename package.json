@@ -11,7 +11,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "publish": "npm login && npm publish",
-    "type": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --checkJs --emitDeclarationOnly --outDir types"
+    "type": "npx -p typescript tsc ./index.js --target ES2022 --module commonjs --declaration --allowJs --checkJs --emitDeclarationOnly --esModuleInterop --allowSyntheticDefaultImports --resolveJsonModule --outDir types"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,10 @@
   },
   "dependencies": {
     "ejs": "^3.1.9",
+    "highlight.js": "^11.9.0",
     "ksdp": "^1.2.16",
+    "markdown-it": "^14.0.0",
+    "marked": "^11.2.0",
     "twig": "^1.17.1",
     "twing": "^6.0.2"
   }

@@ -1,7 +1,7 @@
 module.exports = {};
 
 /**
- * @typedef { 'ejs' | 'twig' | 'twing' | 'md' | 'str' } TEnumDrv
+ * @typedef { 'ejs' | 'twig' | 'twing' | 'str' | 'highlight' | 'mark' | 'markdown' } TEnumDrv
  */
 
 /**

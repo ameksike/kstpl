@@ -1,6 +1,6 @@
 const Driver = require('../Driver');
 
-class Str extends Driver {
+class Mark extends Driver {
 
     /**
      * @description Interpolate all the options into data string
@@ -14,25 +14,13 @@ class Str extends Driver {
      * @returns {String}
      */
     compile(content, params = {}, options = {}) {
-        function rex(val, opt = "g") {
-            try {
-                return new RegExp(val, opt);
-            } catch (e) {
-                return val;
-            }
-        }
         try {
-            const { open = "{{", close = "}}" } = options;
-            if (params) {
-                for (let i in params) {
-                    content = content.replace(rex(open + i + close), params[i]);
-                }
-            }
-            return content.replace(/\\r|\r|\n|\\n/g, "");
+            const { marked } = require('marked');
+            return marked(content, options);
         } catch (error) {
             this.logger?.error({
                 flow: params?.flow || options?.flow,
-                src: "KsTpl:Str:compile",
+                src: "KsTpl:Markdown:compile",
                 error: { message: error?.message || error, stack: error?.stack },
                 data: { content, params, options }
             });
@@ -41,4 +29,4 @@ class Str extends Driver {
     }
 }
 
-exports = module.exports = Str;
+exports = module.exports = Mark;
