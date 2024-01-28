@@ -24,9 +24,24 @@ describe('Driver Markdown', () => {
             path: __dirname + "/mock/",
 
             cacheType: "file",
-            cachePath: __dirname + "/cache/"
+            cachePath: __dirname + "/cache/",
+            cacheExt: "md"
         });
-        const str1 = await KsTpl.render("simple", { name: "Mit", age: 15 }, { page: {}, next: "Highlight" });
+        const str1 = await KsTpl.render("simple", {}, { page: {}, next: "Highlight" });
         expect(str1.length).toBe(2185);
+    });
+
+    it("links", async () => {
+        KsTpl.configure({
+            ext: "md",
+            default: "markdown",
+            path: __dirname + "/mock/",
+
+            cacheType: "file",
+            cachePath: __dirname + "/cache/",
+            cacheExt: "md"
+        });
+        const str1 = await KsTpl.render("linked", {}, { page: {}, next: "Highlight" });
+        expect(/<a href=/ig.test(str1)).toBe(true);
     });
 });
