@@ -25,3 +25,69 @@ This library belong to the *Ksike* ecosystem:
 - [Template Twig: based on Twig Library](./doc/driver.twig.md)
 - [Template Markdown](./doc/driver.markdown.md)
 - [Template Markdown: based on marked Library](./doc/driver.marked.md)
+
+## Quick overview
+
+### Installation
+
+```
+npm install kstpl
+```
+
+### Load the library
+
+```js
+const KsTpl = require("kstpl");
+```
+
+### Compile: Template Simple Format
+```js
+const html = KsTpl.compile(
+    "{{name}}:{{age}}", 
+    { name: "Mit", age: 15 }, 
+    { driver: "str" }
+);
+
+console.log(
+    html === "Mit:15"
+)
+```
+
+### Compile: Template Twig Format
+```js
+const html = KsTpl.compile(
+    "{{name}}:{{age}}", 
+    { name: "Mit", age: 15 }, 
+    { driver: "twing" }
+);
+
+console.log(
+    html === "Mit:15"
+)
+```
+
+### Compile: Template Ejs Format
+```js
+const html = KsTpl.compile(
+    '<%= people.join(","); %>', 
+    { people: ['geddy', 'neil', 'alex'] }, 
+    { driver: "ejs" }
+);
+
+console.log(
+    html === "geddy,neil,alex"
+)
+```
+
+### Compile: Template Markdown Format
+```js
+const html = KsTpl.compile(
+    '# Hello, Markdown!', 
+    null, 
+    { driver: "markdown" }
+);
+
+console.log(
+    html === "<h1>Hello, Markdown!</h1>\n"
+)
+```

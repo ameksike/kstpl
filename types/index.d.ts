@@ -14,21 +14,21 @@ declare const _exports: {
         default?: import("./src/types").TEnumDrv;
         logger?: Console;
         path?: string;
-        algorithm?: string;
+        driver?: string;
         cachePath?: string;
         cacheType?: string;
         cacheExt?: string;
     }): any;
     path: any;
-    run(algorithm?: string, params?: any, action?: string): string;
+    run(driver?: string, params?: any, action?: string): string;
     use(...args: any[]): any;
     set(...args: any[]): any;
-    get(algorithm?: string): any;
+    get(driver?: string): any;
     log(...args: any[]): this;
     getDrvName(file?: string, options?: {
         path?: string;
         ext?: string;
-        algorithm?: string;
+        driver?: string;
     }): string;
     render(file: string, data?: {
         flow?: string;
@@ -39,7 +39,7 @@ declare const _exports: {
         cachePath?: string;
         cacheType?: string;
         cacheExt?: string;
-        algorithm?: string;
+        driver?: string;
     }): Promise<string>;
     compile(content: string, data?: {
         flow?: string;
@@ -47,7 +47,7 @@ declare const _exports: {
         flow?: string;
         open?: string;
         close?: string;
-        algorithm?: string;
+        driver?: string;
     }): string;
     save(content?: string, file?: string, option?: any): string;
     format(content: string, option?: any): string;
