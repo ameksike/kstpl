@@ -12,6 +12,7 @@ class Str extends Driver {
      * @param {String} [options.delimiter] 
      * @param {String} [options.openDelimiter] 
      * @param {String} [options.closeDelimiter] 
+     * @param {String} [options.escape] 
      * @param {Boolean} [options.deep] 
      * @returns {String}
      */
@@ -39,7 +40,7 @@ class Str extends Driver {
                     content = content.replace(rex(open + i + close), value);
                 }
             }
-            return content.replace(/\\r|\r|\n|\\n/g, "");
+            return options?.escape ? content.replace(/[\r\n]/g, "") : content;
         } catch (error) {
             this.logger?.error({
                 flow: params?.flow || options?.flow,
