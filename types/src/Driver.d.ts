@@ -23,6 +23,10 @@ declare class Driver extends Driver_base {
      */
     delimiter: string;
     /**
+     * @type {Boolean}
+     */
+    deep: boolean;
+    /**
      * @type {String}
      */
     openDelimiter: string;
@@ -35,6 +39,7 @@ declare class Driver extends Driver_base {
      * @param {Object} [opt]
      * @param {String} [opt.path]
      * @param {String} [opt.ext]
+     * @param {Boolean} [opt.deep]
      * @param {String} [opt.delimiter]
      * @param {String} [opt.openDelimiter]
      * @param {String} [opt.closeDelimiter]
@@ -44,6 +49,7 @@ declare class Driver extends Driver_base {
     configure(opt?: {
         path?: string;
         ext?: string;
+        deep?: boolean;
         delimiter?: string;
         openDelimiter?: string;
         closeDelimiter?: string;
@@ -55,11 +61,13 @@ declare class Driver extends Driver_base {
      * @param {Object} [options]
      * @param {String} [options.ext]
      * @param {String} [options.path]
+     * @param {Boolean} [options.absolute]
      * @returns {{ file: String, ext: String, path:String, filename: String }}
      */
     getPath(name: string, options?: {
         ext?: string;
         path?: string;
+        absolute?: boolean;
     }): {
         file: string;
         ext: string;

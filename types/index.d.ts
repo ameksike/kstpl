@@ -15,6 +15,7 @@ declare const _exports: {
         logger?: Console;
         path?: string;
         driver?: string;
+        deep?: boolean;
         cachePath?: string;
         cacheType?: string;
         cacheExt?: string;
@@ -45,8 +46,9 @@ declare const _exports: {
         flow?: string;
     }, options?: {
         flow?: string;
-        open?: string;
-        close?: string;
+        delimiter?: string;
+        openDelimiter?: string;
+        closeDelimiter?: string;
         driver?: string;
     }): string;
     save(content?: string, file?: string, option?: any): string;
