@@ -3,7 +3,7 @@ describe('Driver Str', () => {
 
     it("common use", () => {
         KsTpl.configure({ default: "str" });
-        const str1 = KsTpl.compile("{{name}}:{{age}}", { name: "Mit", age: 15 });
+        const str1 = KsTpl.compile("{{name}}:{{age}}", { name: "Mit", age: 15, sex: "m", add: "mm" });
         expect(str1).toBe("Mit:15");
     });
 
@@ -22,6 +22,9 @@ describe('Driver Str', () => {
         }
         KsTpl.configure({ default: "str", openDelimiter: "{", closeDelimiter: "}", deep: true });
         const str1 = KsTpl.compile("{content}/-/{scheme}/-/end", data);
+        const str2 = KsTpl.compile("/root//content//scheme", data);
+
         expect(str1).toBe('/root//content//-//root//content//scheme//-/end');
+        expect(str2).toBe('/root//content//scheme');
     });
 });

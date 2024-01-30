@@ -29,6 +29,9 @@ class Str extends Driver {
             const close = options?.closeDelimiter || this.closeDelimiter || "}}";
             if (params) {
                 for (let i in params) {
+                    if (!rex(open + ".*" + close).test(content)) {
+                        break;
+                    }
                     let value = params[i];
                     if (deep && rex(open + ".*" + close).test(value) && rex(open + i + close).test(content)) {
                         value = this.compile(value, params, options);
