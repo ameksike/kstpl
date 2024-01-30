@@ -40,7 +40,7 @@ class Str extends Driver {
                     content = content.replace(rex(open + i + close), value);
                 }
             }
-            return options?.escape ? content.replace(/[\r\n]/g, "") : content;
+            return options?.escape || options?.escape === undefined ? content.replace(/[\r\n]/g, "") : content;
         } catch (error) {
             this.logger?.error({
                 flow: params?.flow || options?.flow,
