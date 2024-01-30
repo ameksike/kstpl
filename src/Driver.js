@@ -29,6 +29,11 @@ class Driver extends KsDp.integration.Dip {
     delimiter;
 
     /**
+     * @type {Boolean}
+     */
+    deep;
+
+    /**
      * @type {String}
      */
     openDelimiter;
@@ -55,6 +60,7 @@ class Driver extends KsDp.integration.Dip {
      * @param {Object} [opt] 
      * @param {String} [opt.path]
      * @param {String} [opt.ext] 
+     * @param {Boolean} [opt.deep] 
      * @param {String} [opt.delimiter] 
      * @param {String} [opt.openDelimiter] 
      * @param {String} [opt.closeDelimiter] 
@@ -65,6 +71,10 @@ class Driver extends KsDp.integration.Dip {
         this.path = opt?.path ?? this.path;
         this.ext = opt?.ext ?? this.ext;
         this.logger = opt?.logger ?? this.logger;
+        this.deep = opt?.deep ?? this.deep;
+        this.delimiter = opt?.delimiter ?? this.delimiter;
+        this.openDelimiter = opt?.openDelimiter ?? this.openDelimiter;
+        this.closeDelimiter = opt?.closeDelimiter ?? this.closeDelimiter;
         return this;
     }
 
@@ -74,12 +84,13 @@ class Driver extends KsDp.integration.Dip {
      * @param {Object} [options]
      * @param {String} [options.ext] 
      * @param {String} [options.path] 
+     * @param {Boolean} [options.absolute] 
      * @returns {{ file: String, ext: String, path:String, filename: String }} 
      */
     getPath(name, options) {
         const _path = require("path");
         const ext = options?.ext ? "." + options.ext : "";
-        const file = _path.join(options?.path || "", name + ext);
+        const file = options?.absolute || !options?.path ? _path.resolve(name + ext) : _path.join(options.path, name + ext);
         const path = _path.dirname(file);
         const filename = _path.basename(file);
         return { path, file, filename, ext };

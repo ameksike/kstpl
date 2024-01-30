@@ -57,6 +57,7 @@ class KsTpl {
      * @param {Console} [opt.logger] 
      * @param {String} [opt.path] 
      * @param {String} [opt.driver] 
+     * @param {Boolean} [opt.deep] 
      * @param {String} [opt.cachePath] 
      * @param {String} [opt.cacheType] 
      * @param {String} [opt.cacheExt] 
@@ -194,8 +195,9 @@ class KsTpl {
      * @param {String} [data.flow] 
      * @param {Object} [options] 
      * @param {String} [options.flow] 
-     * @param {String} [options.open] 
-     * @param {String} [options.close]
+     * @param {String} [options.delimiter] 
+     * @param {String} [options.openDelimiter] 
+     * @param {String} [options.closeDelimiter] 
      * @param {String} [options.driver] 
      * @returns {String}
      */

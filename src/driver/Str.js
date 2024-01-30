@@ -9,8 +9,10 @@ class Str extends Driver {
      * @param {String} [params.flow] 
      * @param {Object} [options] 
      * @param {String} [options.flow] 
-     * @param {String} [options.open] 
-     * @param {String} [options.close] 
+     * @param {String} [options.delimiter] 
+     * @param {String} [options.openDelimiter] 
+     * @param {String} [options.closeDelimiter] 
+     * @param {Boolean} [options.deep] 
      * @returns {String}
      */
     compile(content, params = {}, options = {}) {
@@ -22,10 +24,16 @@ class Str extends Driver {
             }
         }
         try {
-            const { open = "{{", close = "}}" } = options;
+            const deep = options?.deep ?? this.deep;
+            const open = options?.openDelimiter || this.openDelimiter || "{{";
+            const close = options?.closeDelimiter || this.closeDelimiter || "}}";
             if (params) {
                 for (let i in params) {
-                    content = content.replace(rex(open + i + close), params[i]);
+                    let value = params[i];
+                    if (deep && rex(open + ".*" + close).test(value) && rex(open + i + close).test(content)) {
+                        value = this.compile(value, params, options);
+                    }
+                    content = content.replace(rex(open + i + close), value);
                 }
             }
             return content.replace(/\\r|\r|\n|\\n/g, "");
