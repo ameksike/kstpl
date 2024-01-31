@@ -1,6 +1,6 @@
 {
   "name": "kstpl",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Ksike Template Engine",
   "main": "index.js",
   "types": "types/index.d.ts",

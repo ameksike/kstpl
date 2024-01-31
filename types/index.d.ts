@@ -6,6 +6,8 @@ declare const _exports: {
     cmd: any;
     drv: any;
     che: any;
+    map: any;
+    ext: string;
     default: string;
     cacheType: string;
     cachePath: string;
@@ -15,6 +17,9 @@ declare const _exports: {
         logger?: Console;
         path?: string;
         driver?: string;
+        deep?: boolean;
+        map?: any;
+        ext?: string;
         cachePath?: string;
         cacheType?: string;
         cacheExt?: string;
@@ -45,12 +50,14 @@ declare const _exports: {
         flow?: string;
     }, options?: {
         flow?: string;
-        open?: string;
-        close?: string;
+        delimiter?: string;
+        openDelimiter?: string;
+        closeDelimiter?: string;
         driver?: string;
     }): string;
     save(content?: string, file?: string, option?: any): string;
     format(content: string, option?: any): string;
+    "__#4@#getExt"(filename: string): string;
 };
 export = _exports;
 import Driver = require("./src/Driver");

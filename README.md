@@ -91,3 +91,22 @@ console.log(
     html === "<h1>Hello, Markdown!</h1>\n"
 )
 ```
+
+### Template engine format autodetection 
+```js
+KsTpl.configure({ 
+    map: { "md": "markdown", "html": "twing", "twig": "twing", "ejs": "ejs", "htmljs": "ejs" }, 
+    path: __dirname,
+    ext: ""
+});
+
+const ejs2html = await KsTpl.render("simple.ejs", { user: { name: "Mit", age: 15 } });
+const md2html = await KsTpl.render("linked.md", {}, { page: {}, next: "Highlight" });
+const twig2html = await KsTpl.render("simple.twig", {
+    list: [
+        { name: "Mat", age: 3, twig: true },
+        { name: "Deg", age: 4, twig: false },
+        { name: "Ste", age: 5, twig: true }
+    ]
+});
+```

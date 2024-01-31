@@ -32,6 +32,16 @@ class KsTpl {
      */
     che;
 
+    /**
+     * @type {Object}
+     */
+    map;
+
+    /**
+     * @type {String}
+     */
+    ext;
+
     constructor(opt) {
         this.drv = new KsDp.behavioral.Strategy({
             path: path.resolve(__dirname),
@@ -47,6 +57,8 @@ class KsTpl {
         this.cacheType = "";
         this.cachePath = "";
         this.cacheExt = "";
+        this.ext = "";
+        this.map = { "md": "markdown", "html": "twing", "twig": "twing", "ejs": "ejs", "htmljs": "ejs" };
         this.configure(opt);
     }
 
@@ -57,6 +69,9 @@ class KsTpl {
      * @param {Console} [opt.logger] 
      * @param {String} [opt.path] 
      * @param {String} [opt.driver] 
+     * @param {Boolean} [opt.deep] 
+     * @param {Object} [opt.map] 
+     * @param {String} [opt.ext] 
      * @param {String} [opt.cachePath] 
      * @param {String} [opt.cacheType] 
      * @param {String} [opt.cacheExt] 
@@ -66,9 +81,11 @@ class KsTpl {
         this.default = opt?.default ?? this.default;
         this.logger = opt?.logger ?? this.logger;
         this.path = opt?.path ?? this.path;
+        this.ext = opt?.ext ?? this.ext;
         this.cacheType = opt?.cacheType ?? this.cacheType;
         this.cachePath = opt?.cachePath ?? this.cachePath;
         this.cacheExt = opt?.cacheExt ?? this.cacheExt;
+        opt?.map && Object.assign(this.map, opt.map);
         this.run(opt?.driver || this.default, [opt], "configure");
         return this;
     }
@@ -148,7 +165,8 @@ class KsTpl {
      * @returns {String}
      */
     getDrvName(file = "", options = {}) {
-        return options?.driver || this.default;
+        let drv = file && this.map[this.#getExt(file)];
+        return drv || options?.driver || this.default;
     }
 
     /**
@@ -174,6 +192,9 @@ class KsTpl {
             path: options?.cachePath || this.cachePath,
             ext: options?.cacheExt || this.cacheExt
         }) : null;
+        options = options || { ext: this.ext, path: this.path };
+        options.ext = options.ext ?? this.ext;
+        options.path = options.path ?? this.path;
         if (content) {
             return content;
         }
@@ -194,8 +215,9 @@ class KsTpl {
      * @param {String} [data.flow] 
      * @param {Object} [options] 
      * @param {String} [options.flow] 
-     * @param {String} [options.open] 
-     * @param {String} [options.close]
+     * @param {String} [options.delimiter] 
+     * @param {String} [options.openDelimiter] 
+     * @param {String} [options.closeDelimiter] 
      * @param {String} [options.driver] 
      * @returns {String}
      */
@@ -221,6 +243,15 @@ class KsTpl {
      */
     format(content, option = {}) {
         return this.run(option?.driver || this.default, [content, option], "save");
+    }
+
+    /**
+     * @description get file extension
+     * @param {String} filename 
+     * @returns {String}
+     */
+    #getExt(filename) {
+        return (/[.]/.exec(filename)) ? /[^.]+$/.exec(filename)[0] : "";
     }
 }
 
