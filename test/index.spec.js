@@ -28,4 +28,26 @@ describe('Load KsTpl Lib', () => {
         expect(ejs).toBe("geddy,neil,alex");
         expect(md).toBe("<h1>Hello, Markdown!</h1>\n");
     });
+
+    it("autosearch", async () => {
+        KsTpl.configure({ 
+            map: { "md": "markdown", "html": "twing", "twig": "twing", "ejs": "ejs", "htmljs": "ejs" }, 
+            path: __dirname + "/mock/",
+            ext: ""
+        });
+
+        const str1 = await KsTpl.render("simple.ejs", { user: { name: "Mit", age: 15 } });
+        const str2 = await KsTpl.render("linked.md", {}, { page: {}, next: "Highlight" });
+        const str3 = await KsTpl.render("simple.twig", {
+            list: [
+                { name: "Mat", age: 3, twig: true },
+                { name: "Deg", age: 4, twig: false },
+                { name: "Ste", age: 5, twig: true }
+            ]
+        });
+        
+        expect(str1).toBe(" <h2> Mit </h2> ");
+        expect(/<a href=/ig.test(str2)).toBe(true);
+        expect(str3.length).toBe(90);
+    });
 });
