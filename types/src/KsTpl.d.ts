@@ -82,10 +82,6 @@ declare class KsTpl {
      */
     get(driver?: string): any;
     /**
-     * @description internal log handler
-     */
-    log(...args: any[]): this;
-    /**
      * @description render
      * @param {String} [file]
      * @param {Object} [options]

@@ -29,7 +29,6 @@ declare const _exports: {
     use(...args: any[]): any;
     set(...args: any[]): any;
     get(driver?: string): any;
-    log(...args: any[]): this;
     getDrvName(file?: string, options?: {
         path?: string;
         ext?: string;

@@ -103,7 +103,7 @@ class KsTpl {
             return drv[action](...params);
         }
         catch (error) {
-            this.log({
+            this.logger?.error({
                 src: "KsTpl:" + driver + ":" + action,
                 error: { message: error?.message || error, stack: error?.stack },
                 data: params
@@ -122,7 +122,7 @@ class KsTpl {
             return this;
         }
         catch (error) {
-            this.log(error);
+            this.logger?.error(error);
             return null;
         }
     }
@@ -145,14 +145,6 @@ class KsTpl {
             name: driver || this.default,
             params: [this]
         });
-    }
-
-    /**
-     * @description internal log handler 
-     */
-    log() {
-        this.logger?.log && this.logger.log(...arguments);
-        return this;
     }
 
     /**
