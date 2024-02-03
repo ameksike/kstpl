@@ -29,7 +29,6 @@ declare const _exports: {
     use(...args: any[]): any;
     set(...args: any[]): any;
     get(driver?: string): any;
-    log(...args: any[]): this;
     getDrvName(file?: string, options?: {
         path?: string;
         ext?: string;
@@ -49,11 +48,15 @@ declare const _exports: {
     compile(content: string, data?: {
         flow?: string;
     }, options?: {
+        driver?: string;
         flow?: string;
+        open?: string;
+        close?: string;
         delimiter?: string;
         openDelimiter?: string;
         closeDelimiter?: string;
-        driver?: string;
+        escape?: string;
+        deep?: boolean;
     }): string;
     save(content?: string, file?: string, option?: any): string;
     format(content: string, option?: any): string;

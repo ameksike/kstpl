@@ -103,7 +103,7 @@ class KsTpl {
             return drv[action](...params);
         }
         catch (error) {
-            this.log({
+            this.logger?.error({
                 src: "KsTpl:" + driver + ":" + action,
                 error: { message: error?.message || error, stack: error?.stack },
                 data: params
@@ -122,7 +122,7 @@ class KsTpl {
             return this;
         }
         catch (error) {
-            this.log(error);
+            this.logger?.error(error);
             return null;
         }
     }
@@ -145,14 +145,6 @@ class KsTpl {
             name: driver || this.default,
             params: [this]
         });
-    }
-
-    /**
-     * @description internal log handler 
-     */
-    log() {
-        this.logger?.log && this.logger.log(...arguments);
-        return this;
     }
 
     /**
@@ -214,11 +206,15 @@ class KsTpl {
      * @param {Object} [data] 
      * @param {String} [data.flow] 
      * @param {Object} [options] 
+     * @param {String} [options.driver] 
      * @param {String} [options.flow] 
+     * @param {String} [options.open] 
+     * @param {String} [options.close] 
      * @param {String} [options.delimiter] 
      * @param {String} [options.openDelimiter] 
      * @param {String} [options.closeDelimiter] 
-     * @param {String} [options.driver] 
+     * @param {String} [options.escape] 
+     * @param {Boolean} [options.deep] 
      * @returns {String}
      */
     compile(content, data = {}, options = {}) {

@@ -108,6 +108,11 @@ declare class Driver extends Driver_base {
      * @param {String} [options.flow]
      * @param {String} [options.open]
      * @param {String} [options.close]
+     * @param {String} [options.delimiter]
+     * @param {String} [options.openDelimiter]
+     * @param {String} [options.closeDelimiter]
+     * @param {String} [options.escape]
+     * @param {Boolean} [options.deep]
      * @returns {String}
      */
     compile(content: string, params?: {
@@ -116,6 +121,11 @@ declare class Driver extends Driver_base {
         flow?: string;
         open?: string;
         close?: string;
+        delimiter?: string;
+        openDelimiter?: string;
+        closeDelimiter?: string;
+        escape?: string;
+        deep?: boolean;
     }): string;
     /**
      * @description save content into a file
