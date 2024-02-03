@@ -131,21 +131,29 @@ declare class KsTpl {
      * @param {Object} [data]
      * @param {String} [data.flow]
      * @param {Object} [options]
+     * @param {String} [options.driver]
      * @param {String} [options.flow]
+     * @param {String} [options.open]
+     * @param {String} [options.close]
      * @param {String} [options.delimiter]
      * @param {String} [options.openDelimiter]
      * @param {String} [options.closeDelimiter]
-     * @param {String} [options.driver]
+     * @param {String} [options.escape]
+     * @param {Boolean} [options.deep]
      * @returns {String}
      */
     compile(content: string, data?: {
         flow?: string;
     }, options?: {
+        driver?: string;
         flow?: string;
+        open?: string;
+        close?: string;
         delimiter?: string;
         openDelimiter?: string;
         closeDelimiter?: string;
-        driver?: string;
+        escape?: string;
+        deep?: boolean;
     }): string;
     /**
      * @description save content into a file

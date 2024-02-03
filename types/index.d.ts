@@ -49,11 +49,15 @@ declare const _exports: {
     compile(content: string, data?: {
         flow?: string;
     }, options?: {
+        driver?: string;
         flow?: string;
+        open?: string;
+        close?: string;
         delimiter?: string;
         openDelimiter?: string;
         closeDelimiter?: string;
-        driver?: string;
+        escape?: string;
+        deep?: boolean;
     }): string;
     save(content?: string, file?: string, option?: any): string;
     format(content: string, option?: any): string;
