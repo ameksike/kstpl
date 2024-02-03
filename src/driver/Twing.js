@@ -111,6 +111,48 @@ class Twing extends Driver {
         }
         return environment;
     }
+	
+	/*
+     * @description Render method for versions previus 6.0.0
+     * @param {String} name 
+     * @param {Object} [data] 
+     * @param {String} [data.flow]
+     * @param {Object} [options] 
+     * @param {String} [options.path] 
+     * @param {String} [options.ext] 
+     * @param {String} [options.flow] 
+     * @param {Array} [options.functions] 
+	 */
+    async renderV5(name, data = {}, options = {}) {
+        const { path, filename } = this.getPath(name, options);
+        if (!path) return "";
+        try {
+            const version = require("twing/package")?.version[0];
+            if (parseInt(version) >= 6) {
+                throw new Error("Twing version " + version + " is not supported");
+            }
+            const { TwingEnvironment, TwingLoaderFilesystem, TwingFunction } = require("twing");
+            const loader = new TwingLoaderFilesystem(path);
+            const twing = new TwingEnvironment(loader);
+            if (options?.functions) {
+                for (let i in options.functions) {
+                    if (options.functions[i] instanceof Function) {
+                        twing.addFunction(new TwingFunction(i, options.functions[i]));
+                    }
+                }
+            }
+            return await twing.render(filename, data);
+        }
+        catch (error) {
+            this.logger?.error({
+                flow: data?.flow || options?.flow,
+                src: "util:TPLHandler:render",
+                message: error?.message || error,
+                data: { name, path, local: __dirname }
+            });
+            return "";
+        }
+    }
 }
 
 module.exports = Twing;

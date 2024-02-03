@@ -147,6 +147,11 @@ class Driver extends KsDp.integration.Dip {
      * @param {String} [options.flow] 
      * @param {String} [options.open] 
      * @param {String} [options.close] 
+     * @param {String} [options.delimiter] 
+     * @param {String} [options.openDelimiter] 
+     * @param {String} [options.closeDelimiter] 
+     * @param {String} [options.escape] 
+     * @param {Boolean} [options.deep] 
      * @returns {String}
      */
     compile(content, params = {}, options = {}) {
