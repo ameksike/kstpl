@@ -60,7 +60,7 @@ declare const _exports: {
     }): string;
     save(content?: string, file?: string, option?: any): string;
     format(content: string, option?: any): string;
-    "__#4@#getExt"(filename: string): string;
+    "__#8@#getExt"(filename: string): string;
 };
 export = _exports;
 import Driver = require("./src/Driver");

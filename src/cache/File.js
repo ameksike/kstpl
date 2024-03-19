@@ -36,6 +36,7 @@ class Driver extends Cache {
      * @param {String} [payload.ext] 
      * @param {String} [payload.path] 
      * @param {String} [payload.encoding] 
+     * @param {String} [payload.recursive] 
      * @param {String} [payload.flow] 
      * @returns {Promise<String>}
      */
@@ -46,10 +47,11 @@ class Driver extends Cache {
         try {
             let { file } = this.getPath(payload);
             try {
-                await _fs.promises.mkdir(_path.dirname(file));
+                const options = { recursive: payload?.recursive === undefined || payload?.recursive };
+                await _fs.promises.mkdir(_path.dirname(file), options);
+                await _fs.promises.writeFile(file, payload.content);
             }
             catch (_) { }
-            await _fs.promises.writeFile(file, payload.content);
             return file;
         }
         catch (error) {
